@@ -63,7 +63,23 @@ class Recommendation:
     # Compute the similarity between two users
     @staticmethod
     def get_similarity(user_a, user_b):
-        return 1
+        sum = 0
+        for titlea in user_a.good_ratings:
+            for titleb in user_b.good_ratings:
+                if titlea == titleb:
+                    sum+=1
+            for titleb in user_b.bad_ratings:
+                if titlea == titleb:
+                    sum-=1
+        for titlea in user_a.bad_ratings:
+            for titleb in user_b.bad_ratings:
+                if titlea == titleb:
+                    sum+=1
+            for titleb in user_b.good_ratings:
+                if titlea==titleb:
+                    sum-=1
+        print(sum)
+        return sum
 
     # Compute the similarity between a user and all the users in the data set
     def compute_all_similarities(self, user):
